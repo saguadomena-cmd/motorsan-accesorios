@@ -220,6 +220,25 @@ input.input-ok{border-color:#1a7f4e!important;background:#f0fff8!important}
 .modal-close:hover{background:var(--red-bg);border-color:var(--red);color:var(--red)}
 .modal h2{font-size:.95rem;font-weight:700;margin-bottom:20px;color:var(--text)}
 
+/* centro selector */
+.centro-selector{display:flex;gap:8px}
+.centro-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 10px;border-radius:var(--rs);border:2px solid var(--border2);background:var(--surface2);cursor:pointer;transition:all .15s;font-family:var(--font);font-size:.83rem;font-weight:600;color:var(--muted);user-select:none}
+.centro-btn:hover{border-color:var(--border);color:var(--text2);background:#fff}
+.centro-btn.active-alcala{border-color:#0057a8;background:#e8f0fc;color:#0057a8}
+.centro-btn.active-guadalajara{border-color:#8b1a8b;background:#f5e8f5;color:#8b1a8b}
+.cp-alcala{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:.64rem;font-weight:700;white-space:nowrap;background:#e8f0fc;color:#0057a8;border:1px solid #b8d0f0}
+.cp-guadalajara{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:.64rem;font-weight:700;white-space:nowrap;background:#f5e8f5;color:#8b1a8b;border:1px solid #d9b8d9}
+.cp-none{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:.64rem;font-weight:700;white-space:nowrap;background:var(--surface2);color:var(--muted2);border:1px solid var(--border)}
+
+/* filtro centro en header */
+.centro-filter-bar{display:flex;gap:6px;margin-bottom:10px;align-items:center}
+.centro-filter-bar span{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted2);font-weight:600}
+.cfbtn{padding:4px 12px;border-radius:20px;border:1.5px solid var(--border2);background:var(--surface2);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .15s;color:var(--muted)}
+.cfbtn:hover{border-color:var(--border);color:var(--text2)}
+.cfbtn.cf-all.active{border-color:var(--sales);background:var(--blue-bg);color:var(--sales)}
+.cfbtn.cf-alcala.active{border-color:#0057a8;background:#e8f0fc;color:#0057a8}
+.cfbtn.cf-guadalajara.active{border-color:#8b1a8b;background:#f5e8f5;color:#8b1a8b}
+
 /* brand selector */
 .brand-selector{display:flex;gap:8px}
 .brand-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 10px;border-radius:var(--rs);border:2px solid var(--border2);background:var(--surface2);cursor:pointer;transition:all .15s;font-family:var(--font);font-size:.83rem;font-weight:600;color:var(--muted);user-select:none}
@@ -508,6 +527,18 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
           </div>
           <input type="hidden" id="f_marca" value="audi">
         </div>
+        <div class="field">
+          <label>Centro</label>
+          <div class="centro-selector">
+            <div class="centro-btn active-alcala" id="f_btn_alcala" onclick="setCentro('f','alcala')">
+              🏢 Alcalá
+            </div>
+            <div class="centro-btn" id="f_btn_guadalajara" onclick="setCentro('f','guadalajara')">
+              🏛️ Guadalajara
+            </div>
+          </div>
+          <input type="hidden" id="f_centro" value="alcala">
+        </div>
         <div class="field full">
           <label>Referencias del Pedido</label>
           <div class="tag-wrap" id="wrap_f_refsPedido"><input type="text" id="input_f_refsPedido" placeholder="Escribe manualmente y pulsa Enter…" autocomplete="off"><div class="ac-list" id="ac_f_refsPedido"></div></div>
@@ -528,6 +559,12 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
         <button class="btn btn-primary" onclick="saveRecord()">💾 Guardar</button>
       </div>
     </div>
+    <div class="centro-filter-bar">
+      <span>Centro:</span>
+      <button class="cfbtn cf-all active" id="cf-all" onclick="setCentroFilter('all')">Todos</button>
+      <button class="cfbtn cf-alcala" id="cf-alcala" onclick="setCentroFilter('alcala')">🏢 Alcalá</button>
+      <button class="cfbtn cf-guadalajara" id="cf-guadalajara" onclick="setCentroFilter('guadalajara')">🏛️ Guadalajara</button>
+    </div>
     <div class="controls">
       <div class="srch-wrap"><span class="srch-icon">🔍</span><input type="text" id="searchInput" placeholder="Buscar pedido o referencia…" oninput="renderAll()"></div>
       <button class="fbtn active" id="filter-all"        onclick="setFilter('all')">Todos</button>
@@ -542,6 +579,7 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
         <thead><tr>
           <th onclick="sortBy('numPedido')"      id="th-numPedido">PEDIDO</th>
           <th onclick="sortBy('marca')"          id="th-marca">MARCA</th>
+          <th onclick="sortBy('centro')"         id="th-centro">CENTRO</th>
           <th onclick="sortBy('fechaRecepcion')" id="th-fechaRecepcion">RECEP.</th>
           <th onclick="sortBy('fechaEntrega')"   id="th-fechaEntrega">ENTREGA</th>
           <th onclick="sortBy('ordenTrabajo')"   id="th-ordenTrabajo">OT</th>
@@ -627,6 +665,18 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
           </div>
         </div>
         <input type="hidden" id="e_marca" value="audi">
+      </div>
+      <div class="field">
+        <label>Centro</label>
+        <div class="centro-selector">
+          <div class="centro-btn" id="e_btn_alcala" onclick="setCentro('e','alcala')">
+            🏢 Alcalá
+          </div>
+          <div class="centro-btn" id="e_btn_guadalajara" onclick="setCentro('e','guadalajara')">
+            🏛️ Guadalajara
+          </div>
+        </div>
+        <input type="hidden" id="e_centro" value="alcala">
       </div>
       <div class="field full">
         <label>Referencias del Pedido</label>
@@ -799,7 +849,8 @@ function sanitizeRecord(r) {
     refsRecibidas:  toArr(r.refsRecibidas),
     entregado:      !!r.entregado,
     cargadoEnOT:    !!r.cargadoEnOT,
-    marca:          r.marca || 'audi',
+    marca:          r.marca  || 'audi',
+    centro:         r.centro || 'alcala',
     _fromExcel:     !!r._fromExcel
   };
 }
@@ -824,6 +875,7 @@ function initFirebase(cfg) {
         setTimeout(migrateLocalToFirebase, 1500);
         setTimeout(loadSolicitudes, 500);
         setTimeout(() => { if(typeof startChatListener === 'function') startChatListener(); }, 600);
+        setTimeout(migrateCentros, 2000);
         setTimeout(importPedido35213419, 2500);
         setTimeout(importPedido35126496, 3000);
         setTimeout(importPedido35139732, 3500);
@@ -1025,6 +1077,32 @@ function calcPending(rp, rr) { const arrP=toArr(rp), arrR=toArr(rr); const s = n
 function formatDate(d) { if (!d) return '—'; const [y,m,day] = d.split('-'); return `${day}/${m}/${y}`; }
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
 
+// ─── CENTRO SELECTOR ─────────────────────────────────────────────
+let centroFilter = 'all';
+
+function setCentro(prefix, centro) {
+  document.getElementById(prefix+'_centro').value = centro;
+  const btnA = document.getElementById(prefix+'_btn_alcala');
+  const btnG = document.getElementById(prefix+'_btn_guadalajara');
+  btnA.className = 'centro-btn' + (centro === 'alcala'      ? ' active-alcala'      : '');
+  btnG.className = 'centro-btn' + (centro === 'guadalajara' ? ' active-guadalajara' : '');
+}
+
+function centroPill(centro) {
+  if (centro === 'alcala')      return '<span class="cp-alcala">🏢 Alcalá</span>';
+  if (centro === 'guadalajara') return '<span class="cp-guadalajara">🏛️ Guadalajara</span>';
+  return '<span class="cp-alcala">🏢 Alcalá</span>'; // default
+}
+
+function setCentroFilter(c) {
+  centroFilter = c;
+  ['all','alcala','guadalajara'].forEach(x => {
+    const el = document.getElementById('cf-'+x);
+    if (el) el.classList.toggle('active', x === c);
+  });
+  renderAll();
+}
+
 // ─── BRAND SELECTOR ──────────────────────────────────────────────
 function setBrand(prefix, brand) {
   document.getElementById(prefix+'_marca').value = brand;
@@ -1102,9 +1180,10 @@ function saveRecord() {
     return;
   }
 
-  const marca = document.getElementById('f_marca').value || 'audi';
+  const marca  = document.getElementById('f_marca').value  || 'audi';
+  const centro = document.getElementById('f_centro').value || 'alcala';
   const newRecord = {
-    id: uid(), numPedido, fechaRecepcion, fechaEntrega, ordenTrabajo, marca,
+    id: uid(), numPedido, fechaRecepcion, fechaEntrega, ordenTrabajo, marca, centro,
     refsPedido, refsRecibidas, entregado: false, cargadoEnOT: false
   };
 
@@ -1135,6 +1214,7 @@ function clearForm() {
   ['f_numPedido','f_fechaRecepcion','f_fechaEntrega','f_ordenTrabajo'].forEach(id => document.getElementById(id).value = '');
   clearTI('f_refsPedido'); clearTI('f_refsRecibidas');
   setBrand('f','audi');
+  setCentro('f','alcala');
   const inp = document.getElementById('f_numPedido');
   inp.classList.remove('input-dup','input-ok');
   document.getElementById('dupWarn').classList.remove('show');
@@ -1157,6 +1237,7 @@ function openEdit(id) {
   setTags('e_refsPedido',    rp);
   setTags('e_refsRecibidas', rr);
   setBrand('e', r.marca || 'audi');
+  setCentro('e', r.centro || 'alcala');
   document.getElementById('editModal').classList.add('open');
   setTimeout(() => renderQRButtons('e'), 50);
 }
@@ -1188,7 +1269,8 @@ function saveEdit() {
     fechaRecepcion: document.getElementById('e_fechaRecepcion').value,
     fechaEntrega:   document.getElementById('e_fechaEntrega').value,
     ordenTrabajo:   document.getElementById('e_ordenTrabajo').value.trim(),
-    marca:          document.getElementById('e_marca').value || 'audi',
+    marca:          document.getElementById('e_marca').value  || 'audi',
+    centro:         document.getElementById('e_centro').value || 'alcala',
     refsPedido,
     refsRecibidas
   };
@@ -1295,6 +1377,7 @@ function renderTable() {
     return `<tr>
       <td style="font-weight:700;color:var(--sales);font-family:var(--mono)">${esc(r.numPedido)}</td>
       <td>${brandPill(r.marca)}</td>
+      <td>${centroPill(r.centro)}</td>
       <td style="font-family:var(--mono);font-size:.78rem">${formatDate(r.fechaRecepcion)}</td>
       <td style="font-family:var(--mono);font-size:.78rem">${formatDate(r.fechaEntrega)}</td>
       <td>${otDisplay}</td>
@@ -1382,7 +1465,7 @@ function renderSales() {
           <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted2);font-weight:600;margin-bottom:1px">Nº Pedido Cliente</div>
           <div class="sc-num">${esc(r.numPedido)}</div>
         </div>
-        <div style="margin-left:10px;display:flex;flex-wrap:wrap;gap:3px;align-items:center">${brandPill(r.marca)}${statusBadge}${entregadoBadge}${otBadge}</div>
+        <div style="margin-left:10px;display:flex;flex-wrap:wrap;gap:3px;align-items:center">${brandPill(r.marca)}${centroPill(r.centro)}${statusBadge}${entregadoBadge}${otBadge}</div>
         <div class="sc-date">${formatDate(r.fechaRecepcion)}</div>
       </div>
       <div class="sc-body">
@@ -2638,6 +2721,24 @@ function importPedido35213419() {
     localStorage.setItem(LOCAL_KEY, JSON.stringify(records));
     renderAll(); updateStats();
     toast('✅ Pedido 35213419 importado con 5 referencias ✓', 'success');
+  }
+  localStorage.setItem(KEY, '1');
+}
+
+// ─── MIGRAR CENTROS EXISTENTES → ALCALA ──────────────────────────
+function migrateCentros() {
+  const KEY = 'motorsan_centros_v1';
+  if (localStorage.getItem(KEY)) return;
+  if (!useFirebase || !fbDb) return;
+  // Actualizar todos los registros sin centro asignado
+  const updates = {};
+  records.forEach(r => {
+    if (!r.centro) updates['pedidos/' + r.id + '/centro'] = 'alcala';
+  });
+  if (Object.keys(updates).length) {
+    fbDb.ref().update(updates).then(() => {
+      toast('✅ Centros actualizados — todos marcados como Alcalá', 'success');
+    });
   }
   localStorage.setItem(KEY, '1');
 }
