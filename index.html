@@ -1066,8 +1066,6 @@ function initFirebase(cfg) {
     fbDb.ref('refMemory').on('value', snap => {
       const val = snap.val();
       refMemory = Array.isArray(val) ? val : (val ? Object.values(val) : []);
-      // Sincronizar refs memorizadas con botones rápidos
-      if (refMemory.length) mergeMemoryIntoQR();
     });
 
   } catch(e) {
@@ -1120,8 +1118,6 @@ function loadLocalAndRender() {
     const mem = JSON.parse(localStorage.getItem(MEMORY_KEY));
     refMemory = Array.isArray(mem) ? mem : [];
   } catch { refMemory = []; }
-  // Merge memory refs into quick ref buttons
-  if (refMemory.length) mergeMemoryIntoQR();
   checkImport();
   loadSolicitudes();
   loadChat();
@@ -1711,7 +1707,7 @@ function toast(msg, type='info') {
 }
 
 // ─── QUICK REFS INLINE ───────────────────────────────────────────
-const QR_KEY = 'motorsan_quick_refs';
+const QR_KEY = 'motorsan_quick_refs_v2';
 let qrRefs = [];
 
 function loadQRRefs() {
@@ -1722,11 +1718,14 @@ function loadQRRefs() {
       { id: uid(), label: '8U0061109'     },
       { id: uid(), label: '8Y0071000'     },
       { id: uid(), label: '8B3093052'     },
+      { id: uid(), label: '85H071073'     },
+      { id: uid(), label: '80A071215'     },
+      { id: uid(), label: '80A057800C'    },
+      { id: uid(), label: '8S0051435S'    },
+      { id: uid(), label: '80A057800'     },
     ];
     saveQRRefs();
   }
-  // Enriquecer con refs memorizadas que no estén ya en la lista
-  mergeMemoryIntoQR();
   renderQRButtons('f');
   renderQRButtons('e');
 }
