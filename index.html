@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestión Pedidos Accesorios · MOTORSAN</title>
+<title>Gestión Pedidos Accesorios · MOTORSAN v2.5</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Code+Pro:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -886,8 +887,8 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
 </div>
 
 <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js" crossorigin="anonymous"></script>
 <!-- Fallback CDN por si gstatic está bloqueado -->
 <script>
 if (typeof firebase === 'undefined') {
@@ -1119,6 +1120,8 @@ function loadLocalAndRender() {
     const mem = JSON.parse(localStorage.getItem(MEMORY_KEY));
     refMemory = Array.isArray(mem) ? mem : [];
   } catch { refMemory = []; }
+  // Merge memory refs into quick ref buttons
+  if (refMemory.length) mergeMemoryIntoQR();
   checkImport();
   loadSolicitudes();
   loadChat();
@@ -1536,6 +1539,13 @@ function setSalesCentro(c) {
     const el = document.getElementById('ssc-'+x);
     if (el) el.classList.toggle('active', x === c);
   });
+  // Update placeholder text
+  const inp = document.getElementById('salesSearch');
+  if (inp) {
+    if (c === 'guadalajara') inp.placeholder = '35XXXXXX — buscar en Guadalajara…';
+    else if (c === 'alcala')  inp.placeholder = '35XXXXXX — buscar en Alcalá…';
+    else                      inp.placeholder = '35XXXXXX — escribe para buscar tu pedido…';
+  }
   renderSales();
 }
 
@@ -1555,11 +1565,25 @@ function renderSales() {
   // Toggle clear button
   if (clearBtn) clearBtn.classList.toggle('visible', q.length > 0);
 
-  // If empty search → show nothing
+  // If empty search
   if (!q) {
     container.innerHTML = '';
-    empty.style.display = 'none';
     document.getElementById('btnSolTraslado').style.display = 'none';
+    if (salesCentroFilter === 'guadalajara') {
+      // Show guadalajara empty state without needing to search
+      const pedidosGdl = records.filter(r => (r.centro || 'alcala') === 'guadalajara');
+      if (!pedidosGdl.length) {
+        const emptyEl = document.getElementById('emptySales');
+        if (emptyEl) {
+          emptyEl.innerHTML = '<div class="icon">🏛️</div><p style="font-size:.85rem">No hay pedidos registrados en <strong>Guadalajara</strong> todavía.<br>Usa el botón de traslado para solicitarlos al centro de Alcalá.</p>';
+          emptyEl.style.display = 'block';
+        }
+        document.getElementById('btnSolTraslado').style.display = 'block';
+        if (hint) { hint.textContent = '🏛️ Centro Guadalajara seleccionado — sin pedidos aún'; hint.className = 'ssh-hint'; }
+        return;
+      }
+    }
+    if (empty) empty.style.display = 'none';
     if (hint) { hint.textContent = 'Escribe el número de pedido para ver su estado'; hint.className = 'ssh-hint'; }
     return;
   }
@@ -1578,8 +1602,19 @@ function renderSales() {
   });
   if (!rows.length) {
     container.innerHTML = '';
-    empty.style.display = 'block';
-    if (hint) { hint.textContent = '❌ No se encontró ningún pedido con ese número'; hint.className = 'ssh-hint notfound'; }
+    // Mensaje adaptado según si hay filtro de centro activo
+    const emptyMsg = document.getElementById('emptySales');
+    if (emptyMsg) {
+      if (salesCentroFilter === 'guadalajara') {
+        emptyMsg.innerHTML = '<div class="icon">🏛️</div><p style="font-size:.85rem">No hay pedidos en <strong>Guadalajara</strong> todavía.<br>Usa el botón de traslado para solicitarlos.</p>';
+      } else if (salesCentroFilter === 'alcala') {
+        emptyMsg.innerHTML = '<div class="icon">🏢</div><p style="font-size:.85rem">No se encontró ningún pedido en <strong>Alcalá</strong> con ese número.</p>';
+      } else {
+        emptyMsg.innerHTML = '<div class="icon">🔎</div><p style="font-size:.85rem">No se encontró ningún pedido con ese número.<br>Si no existe, usa el formulario de solicitud.</p>';
+      }
+      emptyMsg.style.display = 'block';
+    }
+    if (hint) { hint.textContent = salesCentroFilter !== 'all' ? `❌ Sin resultados en ${salesCentroFilter === 'alcala' ? 'Alcalá' : 'Guadalajara'}` : '❌ No se encontró ningún pedido con ese número'; hint.className = 'ssh-hint notfound'; }
     // Mostrar botón traslado si no hay resultados
     const btnT = document.getElementById('btnSolTraslado');
     if (btnT) btnT.style.display = 'block';
