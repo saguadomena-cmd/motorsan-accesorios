@@ -32,9 +32,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:1
 .conn-dot.static{animation:none}
 
 /* ═══ SETUP MODAL ═══ */
-.setup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);z-index:3000;align-items:center;justify-content:center;padding:20px}
+.setup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:9999;align-items:center;justify-content:center;overflow-y:auto;padding:20px}
 .setup-overlay.open{display:flex}
-.setup-box{background:#fff;border-radius:var(--r);padding:36px;width:100%;max-width:580px;box-shadow:var(--shadow-lg);position:relative}
+.setup-box{background:#fff;border-radius:16px;padding:28px 32px;max-width:560px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.25);max-height:88vh;overflow-y:auto}
 .setup-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--red),var(--sales));border-radius:var(--r) var(--r) 0 0}
 .setup-box h2{font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--text)}
 .setup-box h2 span{color:var(--red)}
@@ -277,6 +277,25 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
 .legal-close-btn{background:var(--red);color:#fff;border:none;border-radius:var(--rs);padding:9px 26px;font-family:var(--font);font-weight:700;font-size:.85rem;cursor:pointer;transition:all .15s;box-shadow:0 2px 6px rgba(187,10,33,.3)}
 .legal-close-btn:hover{background:var(--red2);transform:translateY(-1px)}
 
+/* ═══ SOLICITAR ENTREGA DESDE BÚSQUEDA ═══ */
+.sc-solicitar{background:linear-gradient(135deg,#1a3a6e,#2a5298);color:#fff;border:none;border-radius:var(--rs);padding:10px 16px;font-family:var(--font);font-size:.82rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s;width:100%;margin-top:10px;justify-content:center;box-shadow:0 2px 8px rgba(26,58,110,.3)}
+.sc-solicitar:hover{background:linear-gradient(135deg,#0d2a5e,#1a3a8e);transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,58,110,.4)}
+.sc-solicitar:active{transform:translateY(0)}
+.sc-solicitar-done{background:linear-gradient(135deg,#1a7f4e,#238636);cursor:default;transform:none!important}
+.notif-entrega{position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:1200;background:#fff;border-radius:var(--r);box-shadow:0 8px 32px rgba(0,0,0,.2);border:2px solid #1a3a6e;padding:16px 20px;min-width:340px;max-width:480px;display:none;animation:notifEntradaTop .4s ease}
+.notif-entrega.show{display:flex;gap:12px;align-items:flex-start}
+@keyframes notifEntradaTop{from{transform:translateX(-50%) translateY(-30px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
+.notif-entrega-icon{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#1a3a6e,#2a5298);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.notif-entrega-body{flex:1}
+.notif-entrega-title{font-size:.85rem;font-weight:700;color:#1a3a6e;margin-bottom:3px}
+.notif-entrega-msg{font-size:.78rem;color:var(--text2);line-height:1.4}
+.notif-entrega-meta{font-size:.65rem;color:var(--muted2);margin-top:4px;font-family:var(--mono)}
+.notif-entrega-close{background:none;border:none;color:var(--muted2);font-size:16px;cursor:pointer;padding:0;line-height:1;flex-shrink:0}
+.notif-entrega-close:hover{color:var(--red)}
+.notif-entrega-actions{display:flex;gap:6px;margin-top:8px}
+.nea-ok{background:#eaf5ef;border:1px solid #b2dfc9;color:#1a7f4e;border-radius:var(--rs);padding:5px 12px;font-size:.75rem;font-weight:700;cursor:pointer;transition:all .15s}
+.nea-ok:hover{background:#1a7f4e;color:#fff}
+
 /* ═══ SOLICITUDES VENDEDOR ═══ */
 .sol-card{background:#fff;border:2px solid var(--sales);border-radius:var(--r);padding:16px 18px;margin-bottom:16px;box-shadow:var(--shadow-sm)}
 .sol-card-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--sales);margin-bottom:12px;display:flex;align-items:center;gap:6px}
@@ -321,6 +340,31 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
 .ssh-clear:hover{color:var(--red)}
 .ssh-clear.visible{display:block}
 .ssh-hint{font-size:.72rem;color:var(--muted2);margin-top:8px;text-align:center;transition:color .2s}
+.ssh-centro-bar{display:flex;gap:6px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.ssh-centro-btn{padding:4px 12px;border-radius:20px;border:1.5px solid var(--border2);background:var(--surface2);font-size:.72rem;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s}
+.ssh-centro-btn.active{border-color:var(--sales);background:var(--blue-bg);color:var(--sales)}
+.ssh-traslado-btn{width:100%;margin-top:8px;padding:10px;border-radius:var(--rs);border:2px dashed #8b1a8b;background:#f5e8f5;color:#8b1a8b;font-family:var(--font);font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s}
+.ssh-traslado-btn:hover{background:#8b1a8b;color:#fff}
+/* modal traslado */
+.traslado-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:3000;align-items:center;justify-content:center}
+.traslado-overlay.open{display:flex}
+.traslado-box{background:#fff;border-radius:var(--r);padding:24px 28px;max-width:420px;width:90%;box-shadow:0 12px 40px rgba(0,0,0,.2)}
+.traslado-box h3{font-size:.95rem;font-weight:700;color:#8b1a8b;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.traslado-field{margin-bottom:12px}
+.traslado-field label{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;font-weight:600;color:var(--muted2);display:block;margin-bottom:5px}
+.traslado-field input,.traslado-field select,.traslado-field textarea{width:100%;padding:9px 12px;border-radius:var(--rs);border:1.5px solid var(--border2);font-family:var(--font);font-size:.85rem;outline:none;box-sizing:border-box}
+.traslado-field input:focus,.traslado-field select:focus,.traslado-field textarea:focus{border-color:#8b1a8b}
+.traslado-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.traslado-send{background:#8b1a8b;color:#fff;border:none;border-radius:var(--rs);padding:9px 20px;font-family:var(--font);font-size:.85rem;font-weight:700;cursor:pointer}
+.traslado-send:hover{background:#6d1570}
+/* notif chat emergente */
+.chat-popup-toast{position:fixed;bottom:88px;right:84px;z-index:900;background:#1a3a6e;color:#fff;border-radius:12px;padding:10px 16px;max-width:260px;display:none;animation:chatNotifIn .3s ease;cursor:pointer;box-shadow:0 4px 16px rgba(26,58,110,.4)}
+.chat-popup-toast.show{display:flex;gap:10px;align-items:center}
+.chat-popup-toast .cpt-icon{font-size:18px;flex-shrink:0}
+.chat-popup-toast .cpt-body{flex:1;min-width:0}
+.chat-popup-toast .cpt-name{font-size:.72rem;font-weight:700;opacity:.85}
+.chat-popup-toast .cpt-text{font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.chat-popup-toast .cpt-close{background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .ssh-hint.found{color:#1a7f4e;font-weight:600}
 .ssh-hint.notfound{color:#bb0a21;font-weight:600}
 
@@ -605,12 +649,21 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
     <!-- BUSCADOR PRINCIPAL VENTAS -->
     <div class="sales-search-hero">
       <div class="ssh-label">🔍 Introduce tu número de pedido</div>
+      <div class="ssh-centro-bar">
+        <span style="font-size:.68rem;font-weight:600;color:var(--muted2);text-transform:uppercase;letter-spacing:.08em">Centro:</span>
+        <button class="ssh-centro-btn active" id="ssc-all" onclick="setSalesCentro('all')">Todos</button>
+        <button class="ssh-centro-btn" id="ssc-alcala" onclick="setSalesCentro('alcala')">🏢 Alcalá</button>
+        <button class="ssh-centro-btn" id="ssc-guadalajara" onclick="setSalesCentro('guadalajara')">🏛️ Guadalajara</button>
+      </div>
       <div class="ssh-wrap">
         <input type="text" id="salesSearch" placeholder="35XXXXXX — escribe para buscar tu pedido…"
           oninput="renderSales()" autocomplete="off" spellcheck="false">
         <button class="ssh-clear" id="sshClear" onclick="clearSalesSearch()" title="Limpiar">✕</button>
       </div>
       <div class="ssh-hint" id="sshHint">Escribe el número de pedido para ver su estado</div>
+      <button class="ssh-traslado-btn" id="btnSolTraslado" style="display:none" onclick="abrirSolicitudTraslado()">
+        🔄 Solicitar este accesorio al otro centro
+      </button>
     </div>
 
     <div class="sales-notice" style="margin-top:4px">
@@ -720,6 +773,60 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
   </div>
 </div>
 
+<!-- MODAL SOLICITUD TRASLADO ENTRE CENTROS -->
+<div class="traslado-overlay" id="trasladoModal">
+  <div class="traslado-box">
+    <h3>🔄 Solicitar accesorio al otro centro</h3>
+    <div class="traslado-field">
+      <label>Nº de pedido</label>
+      <input type="text" id="trl_numPedido" placeholder="35XXXXXX" autocomplete="off">
+    </div>
+    <div class="traslado-field">
+      <label>Centro que solicita</label>
+      <select id="trl_origen">
+        <option value="alcala">🏢 Alcalá</option>
+        <option value="guadalajara">🏛️ Guadalajara</option>
+      </select>
+    </div>
+    <div class="traslado-field">
+      <label>Tu nombre</label>
+      <input type="text" id="trl_vendedor" placeholder="Nombre del vendedor" autocomplete="off">
+    </div>
+    <div class="traslado-field">
+      <label>Nota (opcional)</label>
+      <textarea id="trl_nota" rows="2" placeholder="Descripción del accesorio, urgencia..."></textarea>
+    </div>
+    <div class="traslado-actions">
+      <button class="btn btn-ghost" onclick="cerrarTraslado()">Cancelar</button>
+      <button class="traslado-send" onclick="enviarSolicitudTraslado()">🔄 Enviar solicitud</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT POPUP TOAST -->
+<div class="chat-popup-toast" id="chatPopupToast" onclick="openChatFromNotif()">
+  <span class="cpt-icon">💬</span>
+  <div class="cpt-body">
+    <div class="cpt-name" id="cptName">—</div>
+    <div class="cpt-text" id="cptText">—</div>
+  </div>
+  <button class="cpt-close" onclick="event.stopPropagation();hideChatPopup()">✕</button>
+</div>
+
+<!-- NOTIFICACIÓN SOLICITUD ENTREGA -->
+<div class="notif-entrega" id="notifEntrega">
+  <div class="notif-entrega-icon">📦</div>
+  <div class="notif-entrega-body">
+    <div class="notif-entrega-title" id="notifEntregaTitle">Solicitud de entrega</div>
+    <div class="notif-entrega-msg" id="notifEntregaMsg">—</div>
+    <div class="notif-entrega-meta" id="notifEntregaMeta">—</div>
+    <div class="notif-entrega-actions">
+      <button class="nea-ok" onclick="marcarEntregaAtendida()">✓ Preparando — atendida</button>
+    </div>
+  </div>
+  <button class="notif-entrega-close" onclick="cerrarNotifEntrega()">✕</button>
+</div>
+
 <!-- CHAT NOTIFICATION POPUP -->
 <div class="chat-notif" id="chatNotif" onclick="openChatFromNotif()">
   <div class="chat-notif-avatar rec" id="chatNotifAvatar">🔧</div>
@@ -733,6 +840,9 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
 <div class="toast-container" id="toastContainer"></div>
 
 <!-- ═══ CHAT ═══ -->
+<!-- CONFIG BUTTON FALLBACK -->
+<button id="configFab" onclick="openSetup()" title="Configurar Firebase" style="position:fixed;bottom:86px;left:24px;z-index:800;width:48px;height:48px;border-radius:50%;background:#f59e0b;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 16px rgba(245,158,11,.4);transition:transform .2s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">⚙️</button>
+
 <button class="chat-fab" onclick="toggleChat()" title="Chat interno MOTORSAN">
   💬
   <span class="chat-unread" id="chatUnread">0</span>
@@ -778,6 +888,13 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- Fallback CDN por si gstatic está bloqueado -->
+<script>
+if (typeof firebase === 'undefined') {
+  document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-app-compat.min.js"><\/script>');
+  document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.23.0/firebase-database-compat.min.js"><\/script>');
+}
+</script>
 
 <script>
 // ═══════════════════════════════════════════════════════════════
@@ -799,7 +916,15 @@ let fbDb = null;
 const TI = {};
 
 // ─── SETUP MODAL ────────────────────────────────────────────────
-function openSetup()  { document.getElementById('setupModal').classList.add('open'); }
+function openSetup() {
+  document.getElementById('setupModal').classList.add('open');
+  // Pre-fill with known Motorsan credentials if fields are empty
+  const urlField = document.getElementById('cfg_dbUrl');
+  const keyField = document.getElementById('cfg_apiKey');
+  if (!urlField.value) urlField.value = '';
+  if (!keyField.value) keyField.value = '';
+  setTimeout(() => urlField.focus(), 100);
+}
 function closeSetup() { document.getElementById('setupModal').classList.remove('open'); }
 
 function saveFirebaseConfig() {
@@ -876,6 +1001,7 @@ function initFirebase(cfg) {
         setTimeout(loadSolicitudes, 500);
         setTimeout(() => { if(typeof startChatListener === 'function') startChatListener(); }, 600);
         setTimeout(migrateCentros, 2000);
+        setTimeout(listenSolicitudesEntrega, 1000);
         setTimeout(importPedido35213419, 2500);
         setTimeout(importPedido35126496, 3000);
         setTimeout(importPedido35139732, 3500);
@@ -939,6 +1065,8 @@ function initFirebase(cfg) {
     fbDb.ref('refMemory').on('value', snap => {
       const val = snap.val();
       refMemory = Array.isArray(val) ? val : (val ? Object.values(val) : []);
+      // Sincronizar refs memorizadas con botones rápidos
+      if (refMemory.length) mergeMemoryIntoQR();
     });
 
   } catch(e) {
@@ -1399,8 +1527,21 @@ function renderTable() {
 }
 
 // ─── RENDER VENTAS ────────────────────────────────────────────────
+// ─── SALES CENTRO FILTER ─────────────────────────────────────────
+let salesCentroFilter = 'all';
+
+function setSalesCentro(c) {
+  salesCentroFilter = c;
+  ['all','alcala','guadalajara'].forEach(x => {
+    const el = document.getElementById('ssc-'+x);
+    if (el) el.classList.toggle('active', x === c);
+  });
+  renderSales();
+}
+
 function clearSalesSearch() {
   document.getElementById('salesSearch').value = '';
+  document.getElementById('btnSolTraslado').style.display = 'none';
   renderSales();
 }
 
@@ -1418,13 +1559,16 @@ function renderSales() {
   if (!q) {
     container.innerHTML = '';
     empty.style.display = 'none';
+    document.getElementById('btnSolTraslado').style.display = 'none';
     if (hint) { hint.textContent = 'Escribe el número de pedido para ver su estado'; hint.className = 'ssh-hint'; }
     return;
   }
 
   const rows = records.filter(r => {
     if (!q) return true;
-    const hay = [r.numPedido,...r.refsPedido,...(r.ordenTrabajo?[r.ordenTrabajo]:[])].join(' ').toLowerCase();
+    // Filtro por centro si está seleccionado
+    if (salesCentroFilter !== 'all' && (r.centro || 'alcala') !== salesCentroFilter) return false;
+    const hay = [r.numPedido,...toArr(r.refsPedido),...(r.ordenTrabajo?[r.ordenTrabajo]:[])].join(' ').toLowerCase();
     return hay.includes(q);
   }).sort((a,b) => {
     const pa = calcPending(a.refsPedido, a.refsRecibidas).length;
@@ -1436,9 +1580,15 @@ function renderSales() {
     container.innerHTML = '';
     empty.style.display = 'block';
     if (hint) { hint.textContent = '❌ No se encontró ningún pedido con ese número'; hint.className = 'ssh-hint notfound'; }
+    // Mostrar botón traslado si no hay resultados
+    const btnT = document.getElementById('btnSolTraslado');
+    if (btnT) btnT.style.display = 'block';
     return;
   }
   empty.style.display = 'none';
+  // Ocultar botón traslado si hay resultados
+  const btnT2 = document.getElementById('btnSolTraslado');
+  if (btnT2) btnT2.style.display = 'none';
   if (hint) {
     const n = rows.length;
     hint.textContent = `✓ ${n} pedido${n>1?'s':''} encontrado${n>1?'s':''}`;
@@ -1540,8 +1690,23 @@ function loadQRRefs() {
     ];
     saveQRRefs();
   }
+  // Enriquecer con refs memorizadas que no estén ya en la lista
+  mergeMemoryIntoQR();
   renderQRButtons('f');
   renderQRButtons('e');
+}
+
+function mergeMemoryIntoQR() {
+  const existing = new Set(qrRefs.map(r => normRef(r.label)));
+  let changed = false;
+  refMemory.forEach(ref => {
+    if (ref && !existing.has(normRef(ref))) {
+      qrRefs.push({ id: uid(), label: ref.trim() });
+      existing.add(normRef(ref));
+      changed = true;
+    }
+  });
+  if (changed) saveQRRefs();
 }
 function saveQRRefs() { localStorage.setItem(QR_KEY, JSON.stringify(qrRefs)); }
 
@@ -1930,6 +2095,7 @@ function renderChatMsgs() {
     const last = chatMsgs[chatMsgs.length - 1];
     if (chatLastMsgId && last.id !== chatLastMsgId && last.name !== chatName) {
       showChatNotif(last);
+      showChatPopup(last);
       chatUnreadN++;
       updateChatUnread();
     }
@@ -2040,6 +2206,199 @@ function playChatSound(dept) {
     osc.start(ctx.currentTime);
     osc.stop(ctx.currentTime + 0.35);
   } catch(e) { /* navegador sin Web Audio */ }
+}
+
+// ═══ SOLICITAR PREPARACIÓN DESDE VENTAS ═════════════════════════
+let notifEntregaTimer = null;
+let solicitudEntregaActual = null;
+
+function solicitarPreparacion(recordId, numPedido) {
+  // Pedir nombre del vendedor si no está guardado
+  let vendedor = localStorage.getItem('motorsan_vendedor_nombre') || '';
+  if (!vendedor) {
+    vendedor = prompt('¿Cuál es tu nombre? (se guardará para futuras solicitudes)');
+    if (!vendedor || !vendedor.trim()) return;
+    vendedor = vendedor.trim();
+    localStorage.setItem('motorsan_vendedor_nombre', vendedor);
+  }
+
+  const sol = {
+    id:        uid(),
+    tipo:      'preparacion',
+    recordId,
+    numPedido,
+    vendedor,
+    fecha:     new Date().toISOString(),
+    estado:    'pendiente',
+    nota:      `El vendedor ${vendedor} ha localizado el pedido y solicita que se prepare para entrega`
+  };
+
+  solicitudEntregaActual = sol.id;
+
+  // Guardar en Firebase
+  if (useFirebase && fbDb) {
+    fbDb.ref('solicitudes/' + sol.id).set(sol)
+      .then(() => {
+        toast('✅ Solicitud enviada a Recambios ✓', 'success');
+        // Cambiar botón a "enviado"
+        const btn = [...document.querySelectorAll('.sc-solicitar')].find(b => b.getAttribute('onclick') && b.getAttribute('onclick').includes(recordId));
+        if (btn) { btn.classList.add('sc-solicitar-done'); btn.innerHTML = '✓ Solicitud enviada'; btn.disabled = true; }
+      })
+      .catch(err => toast('⚠️ Error: ' + err.message, 'error'));
+  } else {
+    toast('✅ Solicitud enviada a Recambios ✓', 'success');
+    const btn = [...document.querySelectorAll('.sc-solicitar')].find(b => b.getAttribute('onclick') && b.getAttribute('onclick').includes(recordId));
+    if (btn) { btn.classList.add('sc-solicitar-done'); btn.innerHTML = '✓ Solicitud enviada'; btn.disabled = true; }
+    // Mostrar notificación local
+    mostrarNotifEntrega(sol);
+  }
+}
+
+function mostrarNotifEntrega(sol) {
+  const el     = document.getElementById('notifEntrega');
+  const title  = document.getElementById('notifEntregaTitle');
+  const msg    = document.getElementById('notifEntregaMsg');
+  const meta   = document.getElementById('notifEntregaMeta');
+
+  const fecha  = new Date(sol.fecha);
+  const hhmm   = `${String(fecha.getHours()).padStart(2,'0')}:${String(fecha.getMinutes()).padStart(2,'0')}`;
+
+  title.textContent = `📦 Pedido ${sol.numPedido} — Solicitud de preparación`;
+  msg.textContent   = sol.nota;
+  meta.textContent  = `${sol.vendedor} · ${hhmm}`;
+  solicitudEntregaActual = sol.id;
+
+  el.classList.add('show');
+  playChatSound('rec');
+
+  // Pulso en panel recambios
+  const panel = document.querySelector('.panel-parts');
+  if (panel) {
+    panel.classList.remove('chat-ping');
+    void panel.offsetWidth;
+    panel.classList.add('chat-ping');
+    setTimeout(() => panel.classList.remove('chat-ping'), 700);
+  }
+
+  clearTimeout(notifEntregaTimer);
+  notifEntregaTimer = setTimeout(cerrarNotifEntrega, 8000);
+}
+
+function cerrarNotifEntrega() {
+  clearTimeout(notifEntregaTimer);
+  document.getElementById('notifEntrega').classList.remove('show');
+}
+
+function marcarEntregaAtendida() {
+  if (solicitudEntregaActual && useFirebase && fbDb) {
+    fbDb.ref('solicitudes/' + solicitudEntregaActual + '/estado').set('atendida');
+  }
+  cerrarNotifEntrega();
+  toast('✓ Solicitud marcada como atendida', 'success');
+}
+
+// Escuchar solicitudes de preparación en tiempo real (para Recambios)
+function listenSolicitudesEntrega() {
+  if (!useFirebase || !fbDb) return;
+  fbDb.ref('solicitudes').on('value', snap => {
+    const data = snap.val();
+    if (!data) return;
+    const sols = Object.values(data);
+    // Buscar solicitudes de tipo 'preparacion' pendientes nuevas
+    const pendientes = sols.filter(s => s.tipo === 'preparacion' && s.estado === 'pendiente');
+    // Solo mostrar si hay nuevas (comparar con las que ya vimos)
+    const lastKey = localStorage.getItem('last_sol_entrega_id');
+    const nuevas  = pendientes.filter(s => s.id !== lastKey && (!lastKey || s.id > lastKey));
+    if (nuevas.length > 0) {
+      const ultima = nuevas[nuevas.length - 1];
+      localStorage.setItem('last_sol_entrega_id', ultima.id);
+      mostrarNotifEntrega(ultima);
+      // Actualizar panel de notificaciones de recambios
+      updateNotifBadge();
+      renderNotifPanel();
+    }
+  });
+}
+
+// ═══ TRASLADO ENTRE CENTROS ══════════════════════════════════════
+function abrirSolicitudTraslado() {
+  const q = document.getElementById('salesSearch').value.trim();
+  document.getElementById('trl_numPedido').value = q;
+  // Autodetectar centro origen según filtro
+  const centroOrigen = salesCentroFilter !== 'all' ? salesCentroFilter : 'alcala';
+  document.getElementById('trl_origen').value = centroOrigen;
+  // Recuperar nombre guardado
+  const nombre = localStorage.getItem('motorsan_vendedor_nombre') || '';
+  document.getElementById('trl_vendedor').value = nombre;
+  document.getElementById('trasladoModal').classList.add('open');
+}
+
+function cerrarTraslado() {
+  document.getElementById('trasladoModal').classList.remove('open');
+}
+
+function enviarSolicitudTraslado() {
+  const numPedido = document.getElementById('trl_numPedido').value.trim();
+  const origen    = document.getElementById('trl_origen').value;
+  const vendedor  = document.getElementById('trl_vendedor').value.trim();
+  const nota      = document.getElementById('trl_nota').value.trim();
+  const destino   = origen === 'alcala' ? 'guadalajara' : 'alcala';
+  const destinoLabel = destino === 'alcala' ? '🏢 Alcalá' : '🏛️ Guadalajara';
+  const origenLabel  = origen  === 'alcala' ? '🏢 Alcalá' : '🏛️ Guadalajara';
+
+  if (!numPedido) { toast('Introduce el número de pedido', 'error'); return; }
+  if (!vendedor)  { toast('Introduce tu nombre', 'error'); return; }
+
+  localStorage.setItem('motorsan_vendedor_nombre', vendedor);
+
+  const sol = {
+    id:        uid(),
+    tipo:      'traslado',
+    numPedido,
+    origen,
+    destino,
+    vendedor,
+    nota:      nota || `${vendedor} (${origenLabel}) solicita el accesorio al centro ${destinoLabel}`,
+    fecha:     new Date().toISOString(),
+    estado:    'pendiente'
+  };
+
+  if (useFirebase && fbDb) {
+    fbDb.ref('solicitudes/' + sol.id).set(sol)
+      .then(() => {
+        toast(`✅ Solicitud enviada a ${destinoLabel} ✓`, 'success');
+        cerrarTraslado();
+      })
+      .catch(err => toast('⚠️ Error: ' + err.message, 'error'));
+  } else {
+    toast(`✅ Solicitud enviada a ${destinoLabel} ✓`, 'success');
+    cerrarTraslado();
+  }
+}
+
+// ═══ CHAT POPUP TOAST ════════════════════════════════════════════
+let chatPopupTimer = null;
+
+function showChatPopup(msg) {
+  if (chatOpen) return;
+  if (msg.name === chatName) return;
+
+  const el   = document.getElementById('chatPopupToast');
+  const name = document.getElementById('cptName');
+  const text = document.getElementById('cptText');
+
+  const dept = msg.dept === 'recambios' ? '🔧 Recambios' : '🚗 Ventas';
+  name.textContent = `${msg.name} · ${dept}`;
+  text.textContent = msg.text.length > 50 ? msg.text.slice(0,47)+'…' : msg.text;
+
+  el.classList.add('show');
+  clearTimeout(chatPopupTimer);
+  chatPopupTimer = setTimeout(hideChatPopup, 5000);
+}
+
+function hideChatPopup() {
+  clearTimeout(chatPopupTimer);
+  document.getElementById('chatPopupToast').classList.remove('show');
 }
 
 // ─── LEGAL ────────────────────────────────────────────────────────
@@ -2785,26 +3144,33 @@ function migrateLocalToFirebase() {
 ['f_refsPedido','f_refsRecibidas','e_refsPedido','e_refsRecibidas'].forEach(initTI);
 loadQRRefs();
 
-const savedCfg = localStorage.getItem(CFG_KEY);
-if (savedCfg) {
-  const cfg = JSON.parse(savedCfg);
-  if (cfg.local) {
-    setBanner('local', '📁 Modo local — datos guardados en este navegador · Pulsa "Configurar" para conectar a la nube');
-    loadLocalAndRender();
-  } else {
-    initFirebase(cfg);
-    // Rellenar campos del setup por si quiere cambiarlos
-    document.getElementById('cfg_dbUrl').value  = cfg.url  || '';
-    document.getElementById('cfg_apiKey').value = cfg.apiKey || '';
-    // Mientras Firebase carga, mostramos datos locales si hay
-    loadLocalAndRender();
+// Credenciales Firebase MOTORSAN — conexión automática
+const FIREBASE_URL    = 'https://accesorios-alcala-default-rtdb.europe-west1.firebasedatabase.app';
+const FIREBASE_APIKEY = 'AIzaSyDApTnRdr3LLFowFDzbu_WfDF4teKT75Wo';
+
+// Guardar credenciales y conectar directamente
+const motorCfg = { url: FIREBASE_URL, apiKey: FIREBASE_APIKEY };
+localStorage.setItem(CFG_KEY, JSON.stringify(motorCfg));
+document.getElementById('cfg_dbUrl').value  = FIREBASE_URL;
+document.getElementById('cfg_apiKey').value = FIREBASE_APIKEY;
+
+// Cargar datos locales mientras conecta
+loadLocalAndRender();
+
+// Conectar Firebase
+initFirebase(motorCfg);
+
+// Diagnóstico: si en 8 segundos no conecta, mostrar error claro
+setTimeout(() => {
+  if (!useFirebase) {
+    const msg = typeof firebase === 'undefined'
+      ? '❌ Firebase SDK no cargó — comprueba la conexión a internet'
+      : '❌ Firebase no conectó — comprueba las reglas de la base de datos en Firebase Console';
+    setBanner('offline', msg);
+    toast(msg, 'error');
+    console.error('Firebase status:', typeof firebase, 'useFirebase:', useFirebase);
   }
-} else {
-  // Primera vez: mostrar setup
-  setBanner('connecting', 'Sin configuración — pulsa "Configurar" para conectar a la nube o usar en local');
-  loadLocalAndRender();
-  setTimeout(() => openSetup(), 800);
-}
+}, 8000);
 
 if (!localStorage.getItem('motorsan_legal_seen')) openLegal();
 </script>
