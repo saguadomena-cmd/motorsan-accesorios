@@ -2664,16 +2664,14 @@ function exportarExcel() {
       estado,
       r.entregado    ? 'Sí' : 'No',
       r.cargadoEnOT  ? 'Sí' : 'No',
-    ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(sep);
+    ].map(v => '"' + String(v).replace(/"/g, '\"\"\"') + '"').join(sep);
   });
 
-  const csv = BOM + headers.map(h => `"${h}"`).join(sep) + '
-' + csvRows.join('
-');
+  const csv = BOM + headers.map(h => '"' + h + '"').join(sep) + '\n' + csvRows.join('\n');
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
-  const fecha = new Date().toLocaleDateString('es-ES').replace(/\//g,'-');
+  const fecha = new Date().toLocaleDateString('es-ES').split('/').join('-');
   a.href     = url;
   a.download = `MOTORSAN_Accesorios_${fecha}.csv`;
   a.click();
