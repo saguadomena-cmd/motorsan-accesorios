@@ -682,11 +682,17 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
           onkeydown="if(event.key==='Enter')enviarSolicitud()">
       </div>
       <div class="sol-row">
+        <input type="text" id="sol_bastidor" placeholder="Nº de bastidor (VIN)" autocomplete="off"
+          style="flex:1;font-family:'Source Code Pro',monospace;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase"
+          onkeydown="if(event.key==='Enter')enviarSolicitud()"
+          oninput="this.value=this.value.toUpperCase()">
+      </div>
+      <div class="sol-row">
         <input type="text" id="sol_nota" placeholder="Nota opcional (marca, modelo, urgencia…)" autocomplete="off"
           onkeydown="if(event.key==='Enter')enviarSolicitud()" style="flex:1">
         <button class="sol-btn" onclick="enviarSolicitud()">📩 Enviar</button>
       </div>
-      <div class="sol-hint">Si no encuentras tu pedido en el buscador, solicítalo aquí</div>
+      <div class="sol-hint">Si no encuentras tu pedido en el buscador, solicítalo aquí · El bastidor ayuda a identificar el vehículo</div>
     </div>
     <div id="salesCards"></div>
     <div id="emptySales" class="sales-empty" style="display:none">
@@ -1866,6 +1872,7 @@ function updateSolicitudFirebase(sol) {
 function enviarSolicitud() {
   const numPedido = document.getElementById('sol_numPedido').value.trim();
   const vendedor  = document.getElementById('sol_vendedor').value.trim();
+  const bastidor  = document.getElementById('sol_bastidor').value.trim().toUpperCase();
   const nota      = document.getElementById('sol_nota').value.trim();
   if (!numPedido) { toast('Introduce el número de pedido', 'error'); return; }
   if (!vendedor)  { toast('Introduce tu nombre', 'error'); return; }
@@ -1874,13 +1881,15 @@ function enviarSolicitud() {
     id:        uid(),
     numPedido,
     vendedor,
+    bastidor,
     nota,
     fecha:     new Date().toISOString(),
-    estado:    'pendiente'  // 'pendiente' | 'atendida'
+    estado:    'pendiente'
   };
 
   saveSolicitud(sol);
   document.getElementById('sol_numPedido').value = '';
+  document.getElementById('sol_bastidor').value = '';
   document.getElementById('sol_nota').value = '';
   toast('✅ Solicitud enviada a Recambios', 'success');
 }
@@ -1928,7 +1937,7 @@ function renderNotifPanel() {
     return `<div class="notif-item ${done ? 'done' : ''}" id="notif_${s.id}">
       <div class="notif-info">
         <div class="notif-pedido">📦 ${esc(s.numPedido)}</div>
-        <div class="notif-msg">Vendedor: <strong>${esc(s.vendedor)}</strong>${s.nota ? ' · ' + esc(s.nota) : ''}</div>
+        <div class="notif-msg">Vendedor: <strong>${esc(s.vendedor)}</strong>${s.bastidor ? ' · 🚗 <strong>' + esc(s.bastidor) + '</strong>' : ''}${s.nota ? ' · ' + esc(s.nota) : ''}</div>
         <div class="notif-meta">${fechaStr} · ${done ? '✓ Atendida' : '⏳ Pendiente'}</div>
       </div>
       ${!done ? `<div class="notif-actions">
