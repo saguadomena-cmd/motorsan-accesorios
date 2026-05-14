@@ -1594,6 +1594,17 @@ function getFiltered() {
   }).sort((a,b) => { let va=a[sortField]||'',vb=b[sortField]||''; return va<vb?-sortDir:va>vb?sortDir:0; });
 }
 
+// ─── BUTTON HANDLERS ──────────────────────────────────────────────
+function handleNotasClick(btn) {
+  const rid = btn.getAttribute('data-rid');
+  const np  = btn.getAttribute('data-np');
+  if (rid && np) openNotas(rid, np);
+}
+function handleHistorialClick(btn) {
+  const rid = btn.getAttribute('data-rid');
+  if (rid) openHistorial(rid);
+}
+
 // ─── RENDER RECAMBIOS ─────────────────────────────────────────────
 function renderTable() {
   const rows = getFiltered();
@@ -2139,8 +2150,10 @@ function saveChatName() {
 
 function setChatDept(dept) {
   chatDept = dept;
-  document.getElementById('deptRec').className = 'dept-btn d-rec' + (dept === 'recambios' ? ' active' : '');
-  document.getElementById('deptVen').className = 'dept-btn d-ven' + (dept === 'ventas'    ? ' active' : '');
+  const btnRec = document.getElementById('deptRec');
+  const btnVen = document.getElementById('deptVen');
+  if (btnRec) btnRec.className = 'dept-btn d-rec' + (dept === 'recambios' ? ' active' : '');
+  if (btnVen) btnVen.className = 'dept-btn d-ven' + (dept === 'ventas'    ? ' active' : '');
   if (chatName) localStorage.setItem(CHAT_USER_KEY, JSON.stringify({ name: chatName, dept: chatDept }));
 }
 
