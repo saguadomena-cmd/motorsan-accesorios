@@ -1639,8 +1639,8 @@ function renderTable() {
       <td><div class="tog-wrap"><div class="tog ${r.cargadoEnOT?'on-b':''}" onclick="toggleCargadoEnOT('${r.id}')"></div><span class="tog-lbl" style="${r.cargadoEnOT?'color:var(--blue)':''}">${r.cargadoEnOT?'Sí':'No'}</span></div></td>
       <td><div class="actions">
         <button class="bi" onclick="openEdit('${r.id}')" title="Editar">✏️</button>
-        <button class="bi notas-btn ${notasCount[r.id]?'has-notas':''}" id="notasBtn_${r.id}" onclick="openNotas('${r.id}','${esc(r.numPedido)}')" title="Notas internas">💬${notasCount[r.id]?'<span class=\'notas-count\'>'+notasCount[r.id]+'</span>':''}</button>
-        <button class="bi" onclick="openHistorial('${r.id}')" title="Historial" style="color:#1a3a6e">📋</button>
+        <button class="bi notas-btn ${notasCount[r.id]?'has-notas':''}" id="notasBtn_${r.id}" data-rid="${r.id}" data-np="${esc(r.numPedido)}" onclick="handleNotasClick(this)" title="Notas internas">💬</button>
+        <button class="bi" data-rid="${r.id}" onclick="handleHistorialClick(this)" title="Historial" style="color:#1a3a6e">📋</button>
         <button class="bi del" onclick="deleteRecord('${r.id}')" title="Eliminar">🗑️</button>
       </div></td>
     </tr>`;
@@ -3622,5 +3622,59 @@ setTimeout(() => {
 
 if (!localStorage.getItem('motorsan_legal_seen')) openLegal();
 </script>
+
+<!-- NOTAS POR PEDIDO -->
+<div class="notas-overlay" id="notasOverlay" onclick="closeNotasIfBg(event)">
+  <div class="notas-panel" id="notasPanel">
+    <div class="notas-hdr">
+      <div class="notas-hdr-info">
+        <h3>💬 Notas del pedido</h3>
+        <div class="notas-hdr-sub" id="notasHdrSub">—</div>
+      </div>
+      <button class="notas-close" onclick="closeNotas()">✕</button>
+    </div>
+    <div class="notas-msgs" id="notasMsgs">
+      <div class="notas-empty"><div class="notas-empty-icon">💬</div><span>Sin notas todavía.</span></div>
+    </div>
+    <div class="notas-input-bar">
+      <div class="notas-templates">
+        <span class="notas-tpl" onclick="usarTemplate('¿Cuándo llega este pedido?')">¿Cuándo llega?</span>
+        <span class="notas-tpl" onclick="usarTemplate('Pedido recibido ✓')">Recibido ✓</span>
+        <span class="notas-tpl" onclick="usarTemplate('Pendiente de confirmar con proveedor')">Pendiente proveedor</span>
+        <span class="notas-tpl" onclick="usarTemplate('Cliente esperando — urgente')">⚠️ Urgente</span>
+        <span class="notas-tpl" onclick="usarTemplate('Listo para entrega al vendedor')">Listo para entrega</span>
+      </div>
+      <div class="notas-row">
+        <input type="text" id="notasInput" placeholder="Escribe una nota…" maxlength="300" onkeydown="if(event.key==='Enter')enviarNota()">
+        <button class="notas-send" onclick="enviarNota()">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HISTORIAL PANEL -->
+<div class="hist-overlay" id="histOverlay" onclick="closeHistorial(event)">
+  <div class="hist-panel" id="histPanel">
+    <div class="hist-hdr">
+      <h3>📋 Historial de cambios</h3>
+      <button class="hist-close" onclick="document.getElementById('histOverlay').classList.remove('open')">✕</button>
+    </div>
+    <div class="hist-pedido-info" id="histPedidoInfo">—</div>
+    <div class="hist-body" id="histBody">
+      <div class="hist-empty">Sin historial disponible</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST NUEVA NOTA -->
+<div class="nota-toast-popup" id="notaToastPopup">
+  <div class="ntp-icon">🔔</div>
+  <div class="ntp-body">
+    <div class="ntp-title">Nueva nota en pedido</div>
+    <div class="ntp-pedido" id="ntpPedido">—</div>
+    <div class="ntp-msg" id="ntpMsg">—</div>
+  </div>
+  <button class="ntp-close" onclick="cerrarNotaToast()">✕</button>
+</div>
 </body>
 </html>
