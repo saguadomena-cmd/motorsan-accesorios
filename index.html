@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestión Pedidos Accesorios · MOTORSAN v2.5</title>
+<title>Gestión Pedidos Accesorios · MOTORSAN v2.6</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Source+Code+Pro:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -1639,6 +1639,8 @@ function renderTable() {
       <td><div class="tog-wrap"><div class="tog ${r.cargadoEnOT?'on-b':''}" onclick="toggleCargadoEnOT('${r.id}')"></div><span class="tog-lbl" style="${r.cargadoEnOT?'color:var(--blue)':''}">${r.cargadoEnOT?'Sí':'No'}</span></div></td>
       <td><div class="actions">
         <button class="bi" onclick="openEdit('${r.id}')" title="Editar">✏️</button>
+        <button class="bi notas-btn ${notasCount[r.id]?'has-notas':''}" id="notasBtn_${r.id}" onclick="openNotas('${r.id}','${esc(r.numPedido)}')" title="Notas internas">💬${notasCount[r.id]?'<span class=\'notas-count\'>'+notasCount[r.id]+'</span>':''}</button>
+        <button class="bi" onclick="openHistorial('${r.id}')" title="Historial" style="color:#1a3a6e">📋</button>
         <button class="bi del" onclick="deleteRecord('${r.id}')" title="Eliminar">🗑️</button>
       </div></td>
     </tr>`;
