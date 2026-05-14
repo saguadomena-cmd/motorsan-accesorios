@@ -440,6 +440,103 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
 .panel-sales.chat-ping{animation:panelPing .6s ease}
 @keyframes panelPing{0%,100%{outline:none}30%{outline:3px solid #f0a500;outline-offset:2px}60%{outline:3px solid #f0a500;outline-offset:4px}}
 
+/* ═══ HISTORIAL DE CAMBIOS ═══ */
+.hist-btn{display:inline-flex;align-items:center;gap:4px;background:none;border:1px solid var(--border2);border-radius:var(--rs);padding:3px 8px;font-size:.65rem;color:var(--muted);cursor:pointer;transition:all .15s}
+.hist-btn:hover{border-color:var(--sales);color:var(--sales)}
+.hist-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:4000;align-items:flex-start;justify-content:flex-end;padding:0}
+.hist-overlay.open{display:flex}
+.hist-panel{background:#fff;width:380px;height:100vh;display:flex;flex-direction:column;box-shadow:-8px 0 32px rgba(0,0,0,.15);animation:slideLeft .25s ease}
+@keyframes slideLeft{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}
+.hist-hdr{background:var(--sales);color:#fff;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.hist-hdr h3{font-size:.88rem;font-weight:700}
+.hist-close{background:rgba(255,255,255,.2);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
+.hist-pedido-info{padding:12px 18px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:.78rem;color:var(--text2);flex-shrink:0}
+.hist-pedido-info strong{color:var(--text);font-family:'Source Code Pro',monospace}
+.hist-body{flex:1;overflow-y:auto;padding:14px 18px}
+.hist-empty{text-align:center;color:var(--muted2);font-size:.78rem;padding:32px 0}
+.hist-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.hist-item:last-child{border-bottom:none}
+.hist-dot{width:10px;height:10px;border-radius:50%;background:var(--sales);flex-shrink:0;margin-top:4px}
+.hist-dot.red{background:var(--red)}
+.hist-dot.green{background:var(--green)}
+.hist-dot.orange{background:#f59e0b}
+.hist-info{flex:1}
+.hist-action{font-size:.78rem;font-weight:600;color:var(--text)}
+.hist-detail{font-size:.72rem;color:var(--muted2);margin-top:2px}
+.hist-time{font-size:.65rem;color:var(--muted2);font-family:'Source Code Pro',monospace;white-space:nowrap;flex-shrink:0}
+
+/* ═══ ALERTAS FECHA ENTREGA ═══ */
+.date-ok{color:var(--green);font-weight:600}
+.date-warn{color:#f59e0b;font-weight:700}
+.date-overdue{color:var(--red);font-weight:700;animation:pulse-red 1.5s infinite}
+@keyframes pulse-red{0%,100%{opacity:1}50%{opacity:.5}}
+.date-badge{display:inline-flex;align-items:center;gap:3px;padding:1px 6px;border-radius:20px;font-size:.62rem;font-weight:700}
+.db-ok{background:#eaf5ef;color:var(--green);border:1px solid #b2dfc9}
+.db-warn{background:#fff8ec;color:#c47200;border:1px solid #f0c060}
+.db-overdue{background:#fff0f0;color:var(--red);border:1px solid #f0c0c5}
+.db-nodate{background:var(--surface2);color:var(--muted2);border:1px solid var(--border)}
+
+/* ═══ EXPORT EXCEL ═══ */
+.export-btn{display:inline-flex;align-items:center;gap:6px;background:#1d6f42;color:#fff;border:none;border-radius:var(--rs);padding:6px 14px;font-family:var(--font);font-size:.75rem;font-weight:600;cursor:pointer;transition:background .15s}
+.export-btn:hover{background:#155232}
+
+/* ═══ NOTAS POR PEDIDO ═══ */
+.notas-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:var(--rs);border:1px solid var(--border2);background:#fff;color:var(--muted);cursor:pointer;font-size:11px;transition:all .15s}
+.notas-btn:hover{border-color:#f59e0b;color:#f59e0b;background:#fff8ec}
+.notas-btn.has-notas{border-color:#f59e0b;background:#fff8ec;color:#c47200}
+.notas-count{position:absolute;top:-5px;right:-5px;background:var(--red);color:#fff;border-radius:50%;width:14px;height:14px;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff}
+
+.notas-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:4500;align-items:flex-end;justify-content:flex-end;padding:0}
+.notas-overlay.open{display:flex}
+.notas-panel{background:#fff;width:400px;height:100vh;display:flex;flex-direction:column;box-shadow:-8px 0 32px rgba(0,0,0,.18);animation:slideLeft .22s ease}
+
+.notas-hdr{background:linear-gradient(135deg,#c47200,#f59e0b);color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.notas-hdr-info{flex:1}
+.notas-hdr h3{font-size:.88rem;font-weight:700;margin-bottom:2px}
+.notas-hdr-sub{font-size:.7rem;opacity:.85}
+.notas-close{background:rgba(255,255,255,.25);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.notas-close:hover{background:rgba(255,255,255,.4)}
+
+.notas-msgs{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.notas-msgs::-webkit-scrollbar{width:4px}
+.notas-msgs::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+.notas-msg{display:flex;flex-direction:column;gap:2px;max-width:88%}
+.notas-msg.me{align-self:flex-end;align-items:flex-end}
+.notas-msg.them{align-self:flex-start;align-items:flex-start}
+.notas-bubble{padding:9px 13px;border-radius:12px;font-size:.8rem;line-height:1.45;word-break:break-word}
+.notas-msg.me   .notas-bubble{background:linear-gradient(135deg,#c47200,#f59e0b);color:#fff;border-radius:12px 12px 3px 12px}
+.notas-msg.them .notas-bubble{background:var(--surface2);color:var(--text2);border:1px solid var(--border);border-radius:12px 12px 12px 3px}
+.notas-meta{font-size:.62rem;color:var(--muted2);display:flex;align-items:center;gap:5px}
+.notas-dept{padding:1px 6px;border-radius:20px;font-size:.6rem;font-weight:700}
+.notas-dept.rec{background:var(--red-bg);color:var(--red)}
+.notas-dept.ven{background:var(--blue-bg);color:var(--sales)}
+.notas-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted2);font-size:.78rem;gap:8px;opacity:.7;text-align:center;padding:20px}
+.notas-empty-icon{font-size:2.5rem;opacity:.35}
+
+.notas-input-bar{padding:12px 14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;flex-shrink:0;background:#fff}
+.notas-templates{display:flex;flex-wrap:wrap;gap:5px}
+.notas-tpl{padding:4px 10px;border-radius:20px;border:1px solid #f0c060;background:#fff8ec;font-size:.68rem;color:#c47200;cursor:pointer;transition:all .15s;font-weight:500}
+.notas-tpl:hover{background:#f59e0b;color:#fff;border-color:#f59e0b}
+.notas-row{display:flex;gap:8px}
+.notas-row input{flex:1;padding:9px 12px;border-radius:20px;border:1.5px solid var(--border2);font-family:var(--font);font-size:.82rem;outline:none;background:var(--surface2);transition:border-color .15s}
+.notas-row input:focus{border-color:#f59e0b;background:#fff}
+.notas-send{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#c47200,#f59e0b);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.notas-send:hover{background:#c47200}
+
+/* notif badge en tabla */
+.notif-pedido-badge{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;border-radius:50%;width:15px;height:15px;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff;animation:notifPop .3s ease}
+
+/* toast de nueva nota */
+.nota-toast-popup{position:fixed;top:80px;right:24px;z-index:5000;background:#fff;border-radius:var(--r);box-shadow:0 8px 32px rgba(0,0,0,.18);border-left:4px solid #f59e0b;padding:12px 16px;min-width:300px;max-width:380px;display:none;animation:slideInRight .3s ease}
+.nota-toast-popup.show{display:flex;gap:12px;align-items:flex-start}
+@keyframes slideInRight{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}
+.ntp-icon{font-size:22px;flex-shrink:0}
+.ntp-body{flex:1}
+.ntp-title{font-size:.78rem;font-weight:700;color:#c47200;margin-bottom:2px}
+.ntp-pedido{font-family:"Source Code Pro",monospace;font-size:.82rem;font-weight:700;color:var(--sales)}
+.ntp-msg{font-size:.75rem;color:var(--text2);margin-top:2px}
+.ntp-close{background:none;border:none;color:var(--muted2);cursor:pointer;font-size:16px;padding:0;flex-shrink:0}
+
 @media(max-width:960px){
   .dual-layout{grid-template-columns:1fr}
   .panel-parts{border-right:none;border-bottom:3px solid var(--border2)}
@@ -609,6 +706,9 @@ footer{border-top:1px solid var(--border);padding:14px 28px;display:flex;align-i
       <button class="cfbtn cf-all active" id="cf-all" onclick="setCentroFilter('all')">Todos</button>
       <button class="cfbtn cf-alcala" id="cf-alcala" onclick="setCentroFilter('alcala')">🏢 Alcalá</button>
       <button class="cfbtn cf-guadalajara" id="cf-guadalajara" onclick="setCentroFilter('guadalajara')">🏛️ Guadalajara</button>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+      <button class="export-btn" onclick="exportarExcel()">📊 Exportar Excel</button>
     </div>
     <div class="controls">
       <div class="srch-wrap"><span class="srch-icon">🔍</span><input type="text" id="searchInput" placeholder="Buscar pedido o referencia…" oninput="renderAll()"></div>
@@ -920,6 +1020,7 @@ let sortField = 'numPedido';
 let sortDir   = 1;
 let useFirebase = false;
 let fbDb = null;
+let notasCount = {}; // { recordId: count } for unread notes badge
 const TI = {};
 
 // ─── SETUP MODAL ────────────────────────────────────────────────
@@ -1009,6 +1110,7 @@ function initFirebase(cfg) {
         setTimeout(() => { if(typeof startChatListener === 'function') startChatListener(); }, 600);
         setTimeout(migrateCentros, 2000);
         setTimeout(listenSolicitudesEntrega, 1000);
+        setTimeout(listenNotasGlobal, 1200);
         setTimeout(importPedido35213419, 2500);
         setTimeout(importPedido35126496, 3000);
         setTimeout(importPedido35139732, 3500);
@@ -1330,7 +1432,8 @@ function saveRecord() {
     // Guardar en Firebase el nuevo registro directamente
     fbDb.ref('pedidos/' + newRecord.id).set(newRecord)
       .then(() => {
-        toast('✅ Pedido guardado en la nube ✓', 'success');
+        addHistorial(newRecord.id, 'Pedido creado', `${newRecord.refsPedido.length} referencias · ${newRecord.marca}`, 'success');
+    toast('✅ Pedido guardado en la nube ✓', 'success');
       })
       .catch(err => {
         toast('⚠️ Error Firebase: ' + err.message, 'error');
@@ -1415,7 +1518,7 @@ function saveEdit() {
 
   if (useFirebase && fbDb) {
     fbDb.ref('pedidos/' + editingId).set(updated)
-      .then(() => toast('✅ Cambios guardados en la nube ✓', 'success'))
+      .then(() => { addHistorial(editingId, 'Pedido editado', `Refs pedido: ${updated.refsPedido.length} · Recibidas: ${updated.refsRecibidas.length}`, 'info'); toast('✅ Cambios guardados en la nube ✓', 'success'); })
       .catch(err => {
         toast('⚠️ Error guardando: ' + err.message, 'error');
         console.error('saveEdit Firebase error:', err);
@@ -1434,6 +1537,7 @@ function toggleEntregado(id) {
   localStorage.setItem(LOCAL_KEY, JSON.stringify(records));
   if (useFirebase && fbDb) {
     fbDb.ref('pedidos/' + id + '/entregado').set(records[idx].entregado)
+      .then(() => addHistorial(id, records[idx].entregado ? 'Marcado como entregado' : 'Desmarcado de entregado', '', records[idx].entregado ? 'success' : 'warning'))
       .catch(err => toast('⚠️ Error: ' + err.message, 'error'));
   } else { renderAll(); updateStats(); }
   toast(records[idx].entregado ? 'Marcado como entregado ✓' : 'Desmarcado', 'info');
@@ -1445,6 +1549,7 @@ function toggleCargadoEnOT(id) {
   localStorage.setItem(LOCAL_KEY, JSON.stringify(records));
   if (useFirebase && fbDb) {
     fbDb.ref('pedidos/' + id + '/cargadoEnOT').set(records[idx].cargadoEnOT)
+      .then(() => addHistorial(id, records[idx].cargadoEnOT ? 'Cargado en OT' : 'Retirado de OT', '', 'info'))
       .catch(err => toast('⚠️ Error: ' + err.message, 'error'));
   } else { renderAll(); updateStats(); }
   toast(records[idx].cargadoEnOT ? '📋 Cargado en OT ✓' : 'Desmarcado de OT', 'info');
@@ -1512,7 +1617,16 @@ function renderTable() {
       <td>${brandPill(r.marca)}</td>
       <td>${centroPill(r.centro)}</td>
       <td style="font-family:var(--mono);font-size:.78rem">${formatDate(r.fechaRecepcion)}</td>
-      <td style="font-family:var(--mono);font-size:.78rem">${formatDate(r.fechaEntrega)}</td>
+      <td>${(() => {
+        if (!r.fechaEntrega) return '<span class="date-badge db-nodate">Sin fecha</span>';
+        const today = new Date(); today.setHours(0,0,0,0);
+        const del   = new Date(r.fechaEntrega+'T00:00');
+        const diff  = Math.round((del - today) / 86400000);
+        const str   = del.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'});
+        if (diff < 0)  return `<span class="date-badge db-overdue">⚠️ ${str} (${Math.abs(diff)}d)</span>`;
+        if (diff <= 3) return `<span class="date-badge db-warn">⏰ ${str} (${diff}d)</span>`;
+        return `<span class="date-badge db-ok">✓ ${str}</span>`;
+      })()}</td>
       <td>${otDisplay}</td>
       <td>
         <div class="ref-list">${refPills||'—'}</div>
@@ -2442,6 +2556,297 @@ function showChatPopup(msg) {
 function hideChatPopup() {
   clearTimeout(chatPopupTimer);
   document.getElementById('chatPopupToast').classList.remove('show');
+}
+
+// ═══ HISTORIAL DE CAMBIOS ════════════════════════════════════════
+function addHistorial(recordId, accion, detalle, tipo) {
+  const entry = {
+    id:       uid(),
+    recordId,
+    accion,
+    detalle:  detalle || '',
+    tipo:     tipo || 'info',  // info | success | warning | error
+    fecha:    new Date().toISOString(),
+    usuario:  chatName || localStorage.getItem('motorsan_vendedor_nombre') || 'Sistema'
+  };
+  if (useFirebase && fbDb) {
+    fbDb.ref('historial/' + recordId + '/' + entry.id).set(entry);
+  } else {
+    // Local fallback
+    try {
+      const key  = 'motorsan_hist_' + recordId;
+      const hist = JSON.parse(localStorage.getItem(key) || '[]');
+      hist.push(entry);
+      localStorage.setItem(key, JSON.stringify(hist.slice(-50)));
+    } catch {}
+  }
+}
+
+function openHistorial(recordId) {
+  const r = records.find(x => x.id === recordId);
+  if (!r) return;
+  document.getElementById('histPedidoInfo').innerHTML =
+    `Pedido <strong>${esc(r.numPedido)}</strong> · ${r.fechaRecepcion ? fmtDateJS(r.fechaRecepcion) : 'Sin fecha'}`;
+  document.getElementById('histBody').innerHTML = '<div class="hist-empty">Cargando…</div>';
+  document.getElementById('histOverlay').classList.add('open');
+
+  if (useFirebase && fbDb) {
+    fbDb.ref('historial/' + recordId).orderByChild('fecha').limitToLast(50).once('value', snap => {
+      const data = snap.val();
+      renderHistorialPanel(data ? Object.values(data).sort((a,b) => b.fecha.localeCompare(a.fecha)) : []);
+    });
+  } else {
+    try {
+      const hist = JSON.parse(localStorage.getItem('motorsan_hist_' + recordId) || '[]');
+      renderHistorialPanel(hist.reverse());
+    } catch { renderHistorialPanel([]); }
+  }
+}
+
+function renderHistorialPanel(entries) {
+  const body = document.getElementById('histBody');
+  if (!entries.length) {
+    body.innerHTML = '<div class="hist-empty">📋 Sin historial de cambios todavía.<br>Los cambios futuros quedarán registrados aquí.</div>';
+    return;
+  }
+  body.innerHTML = entries.map(e => {
+    const dotClass = e.tipo === 'success' ? 'green' : e.tipo === 'warning' ? 'orange' : e.tipo === 'error' ? 'red' : '';
+    const fecha = new Date(e.fecha);
+    const hhmm  = `${String(fecha.getDate()).padStart(2,'0')}/${String(fecha.getMonth()+1).padStart(2,'0')} ${String(fecha.getHours()).padStart(2,'0')}:${String(fecha.getMinutes()).padStart(2,'0')}`;
+    return `<div class="hist-item">
+      <div class="hist-dot ${dotClass}"></div>
+      <div class="hist-info">
+        <div class="hist-action">${esc(e.accion)}</div>
+        ${e.detalle ? `<div class="hist-detail">${esc(e.detalle)}</div>` : ''}
+        <div class="hist-detail" style="margin-top:3px">👤 ${esc(e.usuario || 'Sistema')}</div>
+      </div>
+      <div class="hist-time">${hhmm}</div>
+    </div>`;
+  }).join('');
+}
+
+function closeHistorial(e) {
+  if (e && e.target !== document.getElementById('histOverlay')) return;
+  document.getElementById('histOverlay').classList.remove('open');
+}
+
+function fmtDateJS(d) {
+  if (!d) return '—';
+  return new Date(d+'T00:00').toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'});
+}
+
+// ═══ EXPORTAR EXCEL ══════════════════════════════════════════════
+function exportarExcel() {
+  const rows = [...records].sort((a,b) => (b.fechaRecepcion||'').localeCompare(a.fechaRecepcion||''));
+
+  // Build CSV with BOM for Excel Spanish compatibility
+  const BOM = '﻿';
+  const sep = ';';
+  const headers = ['Nº Pedido','Marca','Centro','Fecha Recepción','Fecha Entrega','OT','Referencias Pedido','Referencias Recibidas','Pendientes','% Completado','Estado','Entregado','En OT'];
+
+  const csvRows = rows.map(r => {
+    const rp   = toArr(r.refsPedido);
+    const rr   = toArr(r.refsRecibidas);
+    const pend = calcPending(rp, rr);
+    const pct  = rp.length ? Math.round((rr.length / rp.length) * 100) : 100;
+    const estado = pend.length === 0 ? 'Completo' : 'Incompleto';
+    return [
+      r.numPedido,
+      (r.marca || 'audi').charAt(0).toUpperCase() + (r.marca || 'audi').slice(1),
+      r.centro === 'guadalajara' ? 'Guadalajara' : 'Alcalá',
+      fmtDateJS(r.fechaRecepcion),
+      fmtDateJS(r.fechaEntrega),
+      r.ordenTrabajo || '',
+      rp.join(', '),
+      rr.join(', '),
+      pend.join(', '),
+      pct + '%',
+      estado,
+      r.entregado    ? 'Sí' : 'No',
+      r.cargadoEnOT  ? 'Sí' : 'No',
+    ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(sep);
+  });
+
+  const csv = BOM + headers.map(h => `"${h}"`).join(sep) + '
+' + csvRows.join('
+');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const fecha = new Date().toLocaleDateString('es-ES').replace(/\//g,'-');
+  a.href     = url;
+  a.download = `MOTORSAN_Accesorios_${fecha}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('📊 Excel exportado correctamente ✓', 'success');
+}
+
+// ═══ NOTAS POR PEDIDO ════════════════════════════════════════════
+let notasRecordId   = null;
+let notasNumPedido  = '';
+let notasListener   = null;
+let notaToastTimer  = null;
+let lastNotaIds     = new Set(); // IDs de notas ya vistas
+
+function openNotas(recordId, numPedido) {
+  notasRecordId  = recordId;
+  notasNumPedido = numPedido;
+  const r = records.find(x => x.id === recordId);
+  document.getElementById('notasHdrSub').textContent =
+    `Pedido ${numPedido}${r && r.fechaRecepcion ? ' · ' + fmtDateJS(r.fechaRecepcion) : ''}`;
+  document.getElementById('notasMsgs').innerHTML = '<div class="notas-empty"><div class="notas-empty-icon">⏳</div><span>Cargando notas…</span></div>';
+  document.getElementById('notasOverlay').classList.add('open');
+  document.getElementById('notasInput').focus();
+
+  // Reset badge for this record
+  notasCount[recordId] = 0;
+  const btn = document.getElementById('notasBtn_' + recordId);
+  if (btn) { btn.classList.remove('has-notas'); btn.innerHTML = '💬'; }
+
+  // Listen to notes in real time
+  if (useFirebase && fbDb) {
+    if (notasListener) notasListener();
+    const ref = fbDb.ref('notas/' + recordId);
+    const fn = ref.orderByChild('fecha').on('value', snap => {
+      const data = snap.val();
+      const notas = data ? Object.values(data).sort((a,b) => a.fecha.localeCompare(b.fecha)) : [];
+      renderNotasMsgs(notas);
+      // Mark all as seen
+      notas.forEach(n => lastNotaIds.add(n.id));
+    });
+    notasListener = () => ref.off('value', fn);
+  } else {
+    try {
+      const notas = JSON.parse(localStorage.getItem('motorsan_notas_' + recordId) || '[]');
+      renderNotasMsgs(notas);
+    } catch { renderNotasMsgs([]); }
+  }
+}
+
+function closeNotas() {
+  document.getElementById('notasOverlay').classList.remove('open');
+  if (notasListener) { notasListener(); notasListener = null; }
+  notasRecordId = null;
+}
+
+function closeNotasIfBg(e) {
+  if (e.target === document.getElementById('notasOverlay')) closeNotas();
+}
+
+function renderNotasMsgs(notas) {
+  const container = document.getElementById('notasMsgs');
+  if (!notas.length) {
+    container.innerHTML = '<div class="notas-empty"><div class="notas-empty-icon">💬</div><span>Sin notas todavía.<br>Sé el primero en escribir.</span></div>';
+    return;
+  }
+  const myName = chatName || localStorage.getItem('motorsan_vendedor_nombre') || '';
+  container.innerHTML = notas.map(n => {
+    const isMe = n.autor === myName;
+    const dept = n.dept === 'recambios' ? 'rec' : 'ven';
+    const deptLabel = n.dept === 'recambios' ? '🔧 Rec.' : '🚗 Ven.';
+    const fecha = new Date(n.fecha);
+    const hhmm  = `${String(fecha.getDate()).padStart(2,'0')}/${String(fecha.getMonth()+1).padStart(2,'0')} ${String(fecha.getHours()).padStart(2,'0')}:${String(fecha.getMinutes()).padStart(2,'0')}`;
+    return `<div class="notas-msg ${isMe?'me':'them'}">
+      ${!isMe ? `<div class="notas-meta"><span class="notas-dept ${dept}">${deptLabel}</span> <strong>${esc(n.autor)}</strong></div>` : ''}
+      <div class="notas-bubble">${esc(n.texto)}</div>
+      <div class="notas-meta">${hhmm}</div>
+    </div>`;
+  }).join('');
+  // Scroll to bottom
+  setTimeout(() => { container.scrollTop = container.scrollHeight; }, 50);
+}
+
+function enviarNota() {
+  if (!notasRecordId) return;
+  const inp  = document.getElementById('notasInput');
+  const txt  = inp.value.trim();
+  if (!txt)  return;
+  const autor = chatName || localStorage.getItem('motorsan_vendedor_nombre') || 'Usuario';
+  const nota  = {
+    id:          uid(),
+    recordId:    notasRecordId,
+    numPedido:   notasNumPedido,
+    autor,
+    dept:        chatDept || 'recambios',
+    texto:       txt,
+    fecha:       new Date().toISOString()
+  };
+  inp.value = '';
+  lastNotaIds.add(nota.id);
+
+  if (useFirebase && fbDb) {
+    fbDb.ref('notas/' + notasRecordId + '/' + nota.id).set(nota)
+      .catch(err => toast('Error guardando nota: ' + err.message, 'error'));
+  } else {
+    try {
+      const key   = 'motorsan_notas_' + notasRecordId;
+      const notas = JSON.parse(localStorage.getItem(key) || '[]');
+      notas.push(nota);
+      localStorage.setItem(key, JSON.stringify(notas));
+      renderNotasMsgs(notas);
+    } catch {}
+  }
+  // Log in historial
+  addHistorial(notasRecordId, 'Nota añadida', txt.slice(0,60) + (txt.length>60?'…':''), 'info');
+}
+
+function usarTemplate(txt) {
+  document.getElementById('notasInput').value = txt;
+  document.getElementById('notasInput').focus();
+}
+
+// Escuchar notas nuevas de TODOS los pedidos en tiempo real
+function listenNotasGlobal() {
+  if (!useFirebase || !fbDb) return;
+  const myName = chatName || localStorage.getItem('motorsan_vendedor_nombre') || '';
+  fbDb.ref('notas').on('value', snap => {
+    const data = snap.val();
+    if (!data) return;
+    // Contar notas por pedido y detectar nuevas
+    const newCount = {};
+    let hayNueva = false;
+    let ultimaNueva = null;
+    Object.entries(data).forEach(([recId, notasObj]) => {
+      const notas = Object.values(notasObj);
+      notas.forEach(n => {
+        if (!lastNotaIds.has(n.id) && n.autor !== myName) {
+          hayNueva = true;
+          ultimaNueva = n;
+          lastNotaIds.add(n.id);
+          newCount[recId] = (newCount[recId] || 0) + 1;
+        }
+      });
+    });
+    // Update badges
+    Object.entries(newCount).forEach(([recId, cnt]) => {
+      notasCount[recId] = (notasCount[recId] || 0) + cnt;
+      const btn = document.getElementById('notasBtn_' + recId);
+      if (btn) {
+        btn.classList.add('has-notas');
+        btn.innerHTML = `💬<span class="notas-count">${notasCount[recId]}</span>`;
+      }
+    });
+    // Show popup for latest new note
+    if (hayNueva && ultimaNueva && notasRecordId !== ultimaNueva.recordId) {
+      mostrarNotaToast(ultimaNueva);
+    }
+  });
+}
+
+function mostrarNotaToast(nota) {
+  const el = document.getElementById('notaToastPopup');
+  document.getElementById('ntpPedido').textContent = 'Pedido ' + nota.numPedido;
+  document.getElementById('ntpMsg').textContent    = `${nota.autor}: ${nota.texto.slice(0,80)}${nota.texto.length>80?'…':''}`;
+  el.classList.add('show');
+  el.onclick = () => { cerrarNotaToast(); openNotas(nota.recordId, nota.numPedido); };
+  playChatSound('rec');
+  clearTimeout(notaToastTimer);
+  notaToastTimer = setTimeout(cerrarNotaToast, 6000);
+}
+
+function cerrarNotaToast() {
+  clearTimeout(notaToastTimer);
+  document.getElementById('notaToastPopup').classList.remove('show');
 }
 
 // ─── LEGAL ────────────────────────────────────────────────────────
